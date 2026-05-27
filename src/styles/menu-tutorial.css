@@ -1,0 +1,153 @@
+.menu-layout {
+  display: grid;
+  width: min(100%, 1040px);
+  grid-template-columns: minmax(300px, 0.92fr) minmax(320px, 1fr);
+  gap: clamp(16px, 4vw, 30px);
+  align-items: stretch;
+}
+
+.menu-shell::before {
+  background:
+    linear-gradient(rgba(12, 11, 10, 0.22), rgba(12, 11, 10, 0.66)),
+    url("/assets/menu-table-mood.png") center / cover no-repeat;
+}
+
+.menu-panel--intro {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.menu-start {
+  width: min(100%, 260px);
+  align-self: center;
+}
+
+.tutorial-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(247, 239, 225, 0.16);
+  border-radius: 8px;
+  padding: clamp(20px, 4vw, 34px);
+  background:
+    linear-gradient(145deg, rgba(23, 31, 29, 0.86), rgba(12, 20, 19, 0.76)),
+    rgba(18, 27, 25, 0.72);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.tutorial-panel__image {
+  width: min(100%, 360px);
+  margin: 0 auto 18px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+}
+
+.tutorial-panel__head {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(247, 239, 225, 0.14);
+}
+
+.tutorial-panel__head span {
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tutorial-panel__head strong {
+  max-width: 34ch;
+  color: var(--paper);
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  line-height: 1.22;
+}
+
+.tutorial-steps {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tutorial-step {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  border: 1px solid rgba(247, 239, 225, 0.1);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.tutorial-step__number {
+  display: grid;
+  width: 42px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(216, 169, 63, 0.42);
+  border-radius: 8px;
+  color: #ffdd83;
+  background: rgba(216, 169, 63, 0.12);
+  font-weight: 950;
+}
+
+.tutorial-step h2 {
+  margin: 0;
+  color: var(--paper);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.tutorial-step p {
+  margin: 5px 0 0;
+  color: #d9cbb6;
+  font-size: 0.94rem;
+  line-height: 1.42;
+}
+
+@media (max-width: 820px) {
+  .menu-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-panel--intro {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  .menu-shell {
+    padding: 18px 0;
+  }
+
+  .menu-layout {
+    gap: 12px;
+  }
+
+  .tutorial-panel,
+  .menu-panel--intro {
+    padding: 20px;
+  }
+
+  .tutorial-panel__image {
+    max-height: 150px;
+  }
+
+  .tutorial-step {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .tutorial-step__number {
+    width: 34px;
+  }
+}
