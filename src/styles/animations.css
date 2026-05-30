@@ -1,0 +1,379 @@
+:root {
+  --motion-fast: 150ms;
+  --motion-base: 240ms;
+  --motion-slow: 520ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-pop: cubic-bezier(0.18, 0.9, 0.28, 1.24);
+  --motion-atlas: url("/assets/motion-accents.svg");
+}
+
+@keyframes menuRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dealCard {
+  from {
+    opacity: 0;
+    transform: translateY(26px) rotate(2deg) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes chosenCard {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  55% {
+    transform: translateY(-15px) scale(1.035);
+  }
+  100% {
+    transform: translateY(-12px) scale(1);
+  }
+}
+
+@keyframes rewardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+    filter: saturate(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: saturate(1);
+  }
+}
+
+@keyframes jokerFlipIn {
+  0% {
+    opacity: 0;
+    transform: perspective(760px) rotateY(-18deg) translateY(14px) scale(0.96);
+  }
+  65% {
+    opacity: 1;
+    transform: perspective(760px) rotateY(4deg) translateY(-2px) scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(760px) rotateY(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes panelDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes scorePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(216, 169, 63, 0);
+    transform: scale(0.985);
+  }
+  45% {
+    box-shadow: 0 0 0 5px rgba(216, 169, 63, 0.18);
+    transform: scale(1.012);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(216, 169, 63, 0);
+    transform: scale(1);
+  }
+}
+
+@keyframes accentSweep {
+  from {
+    opacity: 0;
+    transform: translateX(-42%) rotate(-5deg) scale(0.92);
+  }
+  35% {
+    opacity: 0.42;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(42%) rotate(-5deg) scale(1.04);
+  }
+}
+
+@keyframes haloBloom {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  55% {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 0.42;
+    transform: scale(1);
+  }
+}
+
+@keyframes burstPop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.42) rotate(-8deg);
+  }
+  45% {
+    opacity: 0.68;
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.15) rotate(8deg);
+  }
+}
+
+.menu-panel {
+  animation: menuRise var(--motion-slow) var(--ease-out) both;
+}
+
+.game-header,
+.table,
+.side-rail {
+  animation: rewardReveal var(--motion-slow) var(--ease-out) both;
+}
+
+.table {
+  animation-delay: 70ms;
+}
+
+.side-rail {
+  animation-delay: 120ms;
+}
+
+.card {
+  will-change: transform, box-shadow, filter;
+  transform-origin: 50% 82%;
+  animation: dealCard 360ms var(--ease-out) both;
+  transition:
+    transform var(--motion-base) var(--ease-pop),
+    box-shadow var(--motion-base) ease,
+    border-color var(--motion-fast) ease,
+    filter var(--motion-fast) ease;
+}
+
+.card::after {
+  position: absolute;
+  inset: -24%;
+  z-index: 1;
+  content: "";
+  pointer-events: none;
+  opacity: 0;
+  background: var(--motion-atlas) 100% 50% / 300% 100% no-repeat;
+  mix-blend-mode: screen;
+  animation: accentSweep 520ms var(--ease-out) 80ms both;
+}
+
+.hand__grid .card:nth-child(2) {
+  animation-delay: 25ms;
+}
+
+.hand__grid .card:nth-child(3) {
+  animation-delay: 50ms;
+}
+
+.hand__grid .card:nth-child(4) {
+  animation-delay: 75ms;
+}
+
+.hand__grid .card:nth-child(5) {
+  animation-delay: 100ms;
+}
+
+.hand__grid .card:nth-child(6) {
+  animation-delay: 125ms;
+}
+
+.hand__grid .card:nth-child(7) {
+  animation-delay: 150ms;
+}
+
+.hand__grid .card:nth-child(8) {
+  animation-delay: 175ms;
+}
+
+.card:hover:not(:disabled) {
+  filter: brightness(1.04) saturate(1.05);
+}
+
+.card--selected {
+  animation: chosenCard 260ms var(--ease-pop) both;
+  animation-delay: 0ms;
+}
+
+.card--selected::after {
+  inset: -32%;
+  z-index: 0;
+  opacity: 0.42;
+  background-position: 0 50%;
+  animation: haloBloom 260ms var(--ease-pop) both;
+}
+
+.card:active:not(:disabled) {
+  transform: translateY(-8px) scale(0.985);
+}
+
+.button {
+  transition:
+    transform var(--motion-fast) var(--ease-out),
+    opacity var(--motion-fast) ease,
+    background var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease,
+    filter var(--motion-fast) ease;
+}
+
+.button:hover:not(:disabled) {
+  filter: brightness(1.04);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+}
+
+.score-panel__stats div,
+.score-panel__status,
+.score-panel__result,
+.active-jokers,
+.joker-card,
+.game-over__stats div {
+  transition:
+    transform var(--motion-base) var(--ease-out),
+    border-color var(--motion-base) ease,
+    box-shadow var(--motion-base) ease,
+    background var(--motion-base) ease,
+    filter var(--motion-base) ease;
+}
+
+.score-panel__result {
+  position: relative;
+  overflow: hidden;
+  animation: scorePulse 520ms var(--ease-out) both;
+  transform-origin: 50% 50%;
+}
+
+.score-panel__result::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  content: "";
+  pointer-events: none;
+  background: var(--motion-atlas) 50% 50% / 300% 100% no-repeat;
+  mix-blend-mode: screen;
+  animation: burstPop 620ms var(--ease-out) both;
+}
+
+.score-panel__result--success {
+  box-shadow: inset 0 0 0 1px rgba(86, 184, 125, 0.22);
+}
+
+.score-panel__result--fail {
+  box-shadow: inset 0 0 0 1px rgba(224, 105, 105, 0.2);
+}
+
+.joker-picker {
+  animation: rewardReveal 420ms var(--ease-out) both;
+}
+
+.joker-card {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transform-origin: 50% 70%;
+  animation: jokerFlipIn 480ms var(--ease-out) both;
+}
+
+.joker-card::after {
+  position: absolute;
+  inset: -30%;
+  content: "";
+  pointer-events: none;
+  opacity: 0;
+  background: var(--motion-atlas) 100% 50% / 300% 100% no-repeat;
+  mix-blend-mode: screen;
+  animation: accentSweep 620ms var(--ease-out) 120ms both;
+}
+
+.joker-picker__grid .joker-card:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.joker-card:hover {
+  box-shadow:
+    0 0 0 3px rgba(216, 169, 63, 0.12),
+    0 18px 32px rgba(0, 0, 0, 0.26);
+  filter: brightness(1.04);
+}
+
+.joker-card:active:not(.joker-card--compact) {
+  transform: translateY(0) scale(0.985);
+}
+
+.joker-card--compact {
+  animation: rewardReveal 300ms var(--ease-out) both;
+}
+
+.game-over {
+  animation: panelDrop 460ms var(--ease-out) both;
+  transform-origin: 50% 0;
+}
+
+.game-over .button {
+  animation: rewardReveal 360ms var(--ease-out) 120ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 1ms;
+    --motion-base: 1ms;
+    --motion-slow: 1ms;
+  }
+
+  .menu-panel,
+  .game-header,
+  .table,
+  .side-rail,
+  .card,
+  .card--selected,
+  .score-panel__result,
+  .joker-picker,
+  .joker-card,
+  .joker-card--compact,
+  .game-over,
+  .game-over .button {
+    animation: none !important;
+  }
+
+  .card::after,
+  .score-panel__result::after,
+  .joker-card::after {
+    content: none !important;
+  }
+
+  .card,
+  .card:hover:not(:disabled),
+  .card--selected,
+  .card:active:not(:disabled),
+  .joker-card:hover,
+  .joker-card:active:not(.joker-card--compact),
+  .button:hover:not(:disabled),
+  .button:active:not(:disabled) {
+    transform: none !important;
+  }
+}
