@@ -14,6 +14,7 @@ const MENU_STATE = {
   hand: [],
   round: 1,
   targetScore: INITIAL_TARGET_SCORE,
+  roundScore: 0,
   lastResult: null,
   lastScoreResult: null,
   activeJokers: [],
@@ -26,6 +27,13 @@ const MENU_STATE = {
 function normalizeGameState(state) {
   const scoreSource = state?.lastScoreResult || state?.lastResult || null;
   const finalScore = scoreSource?.finalScore ?? state?.lastScore ?? null;
+  const passed = Number(finalScore) >= Number(state?.targetScore || INITIAL_TARGET_SCORE);
+  const prevRoundScore = state?.roundScore ?? 0;
+  const roundScore = scoreSource
+    ? passed
+      ? 0
+      : prevRoundScore + Number(finalScore ?? 0)
+    : prevRoundScore;
 
   return {
     ...MENU_STATE,
@@ -34,12 +42,14 @@ function normalizeGameState(state) {
     hand: state?.hand || [],
     activeJokers: state?.activeJokers || [],
     jokerOptions: state?.jokerOptions || [],
+    roundScore,
     lastResult: scoreSource
       ? {
           ...scoreSource,
           combination: state?.lastCombination || scoreSource.combination,
           finalScore,
-          passed: Number(finalScore) >= Number(state?.targetScore || INITIAL_TARGET_SCORE),
+          passed,
+          roundScoreAfter: roundScore,
         }
       : null,
     gameOverSummary:
