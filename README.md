@@ -34,3 +34,6 @@ That script checks the 52-card deck, draw behavior, every poker hand, ace-low an
 - Round 1 target is 100. Next target is previous target + 75 + round * 25.
 - After a successful round, show up to two new joker options and do not offer jokers already owned.
 - Failed attempts replace submitted cards from the deck. If there are not enough cards, the run ends.
+
+# Video Link
+https://youtu.be/t-v96e7wTx0
